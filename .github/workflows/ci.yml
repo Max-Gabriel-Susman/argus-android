@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A newer push to the same branch cancels the run still in progress.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build, lint and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      # gradle/gradle-daemon-jvm.properties asks for JDK 25, so install that
+      # one rather than have Gradle download it on every run.
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 25
+
+      # Caches Gradle's downloads between runs and checks gradle-wrapper.jar
+      # against Gradle's published checksums.
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Build both apps
+        run: ./gradlew assembleDebug
+
+      - name: Lint
+        run: ./gradlew lintDebug
+
+      - name: Unit tests
+        run: ./gradlew testDebugUnitTest
+
+  hygiene:
+    name: Docs hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: No em dashes in Markdown
+        run: |
+          dash=$(printf '\xe2\x80\x94')
+          if git grep -nF "$dash" -- '*.md'; then
+            echo "::error::Em dash in Markdown. Use a colon, comma or parentheses instead."
+            exit 1
+          fi

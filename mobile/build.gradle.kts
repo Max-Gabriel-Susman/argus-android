@@ -1,40 +1,55 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
 }
 
-    android {
+android {
     namespace = "io.github.maxgabrielsusman.argus.mobile"
-        compileSdk {
-            version = release(37)
-        }
+    compileSdk {
+        version = release(37)
+    }
 
-        defaultConfig {
-      applicationId = "io.github.maxgabrielsusman.argus.mobile"
-    minSdk = 34
-    targetSdk = 37
-    versionCode = 1
-    versionName = "1.0"
+    defaultConfig {
+        applicationId = "io.github.maxgabrielsusman.argus"
+        minSdk = 34
+        targetSdk = 37
+        versionCode = 1
+        versionName = "1.0"
 
-      testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-          release {
-              optimization {
-                  enable = true
-                  packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")
-              }
-          }
-      }
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
+        release {
+            optimization {
+                enable = true
+                packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")
+            }
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        compose = true
+    }
+}
 
-  dependencies {
-      implementation(libs.core.ktx)
-      testImplementation(libs.junit)
-      androidTestImplementation(libs.espresso.core)
-      androidTestImplementation(libs.ext.junit)
-  }
+dependencies {
+    implementation(platform(libs.compose.bom))
+    implementation(libs.activity.compose)
+    implementation(libs.core.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.material3)
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.ui.tooling.preview)
+    testImplementation(libs.junit)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.test.manifest)
+    debugImplementation(libs.ui.tooling)
+}

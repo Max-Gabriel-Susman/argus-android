@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "argus-android"
 include(":wear")
+include(":mobile")
