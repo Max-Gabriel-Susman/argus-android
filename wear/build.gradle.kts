@@ -10,7 +10,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "io.github.maxgabrielsusman.argus.wear"
+        applicationId = "io.github.maxgabrielsusman.argus"
         minSdk = 34
         targetSdk = 37
         versionCode = 1

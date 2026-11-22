@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Argus"
-include(":app")
+rootProject.name = "argus-android"
+include(":wear")
