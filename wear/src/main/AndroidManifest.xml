@@ -3,6 +3,16 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- Heart rate and motion on Wear OS 6 and later -->
+    <uses-permission android:name="android.permission.health.READ_HEART_RATE" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <!-- Heart rate and motion on Wear OS 5 -->
+    <uses-permission
+        android:name="android.permission.BODY_SENSORS"
+        android:maxSdkVersion="35" />
+    <!-- The tracking notification -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <uses-feature android:name="android.hardware.type.watch" />
 
     <application
