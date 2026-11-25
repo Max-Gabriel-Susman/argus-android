@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">Argus</string>
-    <string name="hello_world">Hello, %1$s!</string>
+    <string name="status_needed">Argus needs heart rate and motion access to track sleep.</string>
+    <string name="status_denied">Access is off. Tap Settings, then Permissions, to turn it on.</string>
+    <string name="status_ready">Ready to track.</string>
+    <string name="status_tracking">Tracking.</string>
+    <string name="action_allow">Allow</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_start">Start</string>
+    <string name="action_stop">Stop</string>
 </resources>
